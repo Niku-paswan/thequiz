@@ -14,9 +14,18 @@ class MyApp extends StatelessWidget {
             'My FirstApp',
           ),
         ),
-        body: const Text(
-          'This is My Defaulte body',
-        ),
+        body: Column(
+  children: const [
+    Text('Deliver features faster'),
+    Text('Craft beautiful UIs'),
+    Expanded(
+      child: FittedBox(
+        fit: BoxFit.contain, // otherwise the logo will be tiny
+        child: FlutterLogo(),
+      ),
+    ),
+  ],
+)
       ),
       /**
        * 
