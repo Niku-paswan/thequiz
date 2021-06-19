@@ -1,24 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:thequiz/quiz.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 // ignore: use_key_in_widget_constructors
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
 
-  final ButtonStyle style=ElevatedButton.styleFrom(
-     primary: Colors.white,
-    onPrimary: Colors.blue,
-    textStyle:const TextStyle(
-      fontSize: 19,
-      fontWeight: FontWeight.bold,
-      
-    )
-  );
-  void quetionAnswer(){
-    
+class _MyAppState extends State<MyApp> {
+  var _questionIndex = 0;
+
+  var questionList = [
+    {
+      'questionText': 'What is your favorite color',
+      'answerText': ['Red', 'Blue', 'Black', 'White'],
+    },
+    {
+      'questionText': 'Who is Your Favorite Teacher',
+      'answerText': [
+        'Niku Paswan',
+        'Ravi Sharma',
+        'Nadeem',
+      ],
+    },
+    {
+      'questionText': 'What is your favorite vegetable',
+      'answerText': [
+        'Potato',
+        'Tomato',
+        'Onion',
+      ],
+    },
+  ];
+
+  final ButtonStyle style = ElevatedButton.styleFrom(
+      primary: Colors.white,
+      onPrimary: Colors.blue,
+      textStyle: const TextStyle(
+        fontSize: 19,
+        fontWeight: FontWeight.bold,
+      ));
+
+  void quetionAnswer() {
+    setState(() {
+      _questionIndex += 1;
+    });
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,30 +61,11 @@ class MyApp extends StatelessWidget {
             'My FirstApp',
           ),
         ),
-        body: Column(
-          children: [
-            ElevatedButton(
-             child: const Text('Answer1'),
-             onPressed:(){},
-             style: style
-           ),
-           ElevatedButton(
-             child: const Text('Answer2'),
-             onPressed:(){},
-             style: style
-           ),
-           ElevatedButton(
-             child: const Text('Answer3'),
-             onPressed:(){},
-             style: style
-           ),
-            ElevatedButton(
-             child: const Text('Answer4'),
-             onPressed:(){},
-             style: style
-           )
-          ],
-        ),
+        body: _questionIndex < questionList.length
+            ? Quiz(questionList,quetionAnswer,_questionIndex)
+            : const Center(
+                child: Text('You did it'),
+              ),
       ),
     );
   }
